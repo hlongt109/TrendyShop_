@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "708280227713",
+    "project_id": "trendyshop-baa07",
+    "storage_bucket": "trendyshop-baa07.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:708280227713:android:ee4d440093bb4d6fb27a80",
+        "android_client_info": {
+          "package_name": "com.trendyshopteam.trendyshop"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUI5ElKuDHdviMtDdFbbpgQSq__GzPOLM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
