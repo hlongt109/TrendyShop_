@@ -30,6 +30,9 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+    buildFeatures{
+        viewBinding = true
+    }
 }
 
 dependencies {
@@ -50,4 +53,7 @@ dependencies {
     implementation ("com.google.firebase:firebase-firestore")
     // animation
     implementation ("com.airbnb.android:lottie:6.3.0")
+    // glide
+    implementation ("com.github.bumptech.glide:glide:4.16.0")
+    implementation ("com.github.dhaval2404:imagepicker:2.1")
 }
