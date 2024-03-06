@@ -30,6 +30,12 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+    buildFeatures {
+        dataBinding = true
+    }
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 dependencies {
@@ -50,4 +56,8 @@ dependencies {
     implementation ("com.google.firebase:firebase-firestore")
     // animation
     implementation ("com.airbnb.android:lottie:6.3.0")
+    //thư viện ảnh
+    implementation("com.github.bumptech.glide:glide:4.12.0")
+    //data binding
+    implementation("androidx.databinding:databinding-runtime:7.1.0")
 }
