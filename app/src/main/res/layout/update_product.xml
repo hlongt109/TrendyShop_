@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:elevation="8dp"
+    android:layout_marginHorizontal="10dp"
+    app:cardCornerRadius="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:orientation="vertical">
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/img_anh"
+            android:layout_gravity="center"
+            android:id="@+id/update_imgProduct"/>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="5dp"
+            app:cardCornerRadius="15dp">
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Name Product"
+                android:textColorHint="@color/black"
+                android:id="@+id/in_nameProductUpdate">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/ed_nameProductUpdate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/khung_input"/>
+            </com.google.android.material.textfield.TextInputLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="5dp"
+            app:cardCornerRadius="15dp">
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Price"
+                android:textColorHint="@color/black"
+                android:id="@+id/in_priceProductUpdate">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/ed_priceProductUpdate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/khung_input"/>
+            </com.google.android.material.textfield.TextInputLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="5dp"
+            app:cardCornerRadius="15dp">
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Description"
+                android:textColorHint="@color/black"
+                android:id="@+id/in_descriptionProductUpdate">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/ed_descriptionProductUpdate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/khung_input"/>
+            </com.google.android.material.textfield.TextInputLayout>
+        </androidx.cardview.widget.CardView>
+
+        <Button
+            android:layout_width="180dp"
+            android:layout_height="50dp"
+            android:text="Update Product"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="#EC2578"
+            android:id="@+id/btn_UpdateProduct"/>
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

@@ -30,7 +30,10 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
-    buildFeatures{
+    buildFeatures {
+        dataBinding = true
+    }
+    buildFeatures {
         viewBinding = true
     }
 }
@@ -57,4 +60,8 @@ dependencies {
     // glide
     implementation ("com.github.bumptech.glide:glide:4.16.0")
     implementation ("com.github.dhaval2404:imagepicker:2.1")
+    //thư viện ảnh
+    implementation("com.github.bumptech.glide:glide:4.12.0")
+    //data binding
+    implementation("androidx.databinding:databinding-runtime:7.1.0")
 }
