@@ -48,11 +48,20 @@
             android:textStyle="bold"
             android:text="User manage"/>
     </RelativeLayout>
-    <androidx.recyclerview.widget.RecyclerView
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/toolbar"
-        android:paddingHorizontal="15dp"
-        android:id="@+id/rcv_User"/>
-
+        android:layout_below="@id/toolbar">
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingHorizontal="15dp"
+            android:id="@+id/rcv_User"/>
+        <ProgressBar
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:visibility="invisible"
+            android:id="@+id/progressBar"/>
+    </FrameLayout>
 </RelativeLayout>

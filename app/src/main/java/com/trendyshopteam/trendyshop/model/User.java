@@ -2,18 +2,17 @@ package com.trendyshopteam.trendyshop.model;
 
 public class User {
     private String id;
-    private String username;
-    private String password;
     private String email;
+    private String password;
+
     private String fullname;
     private String address;
     private String role;
     private String photo;
     private String lastLogin;
 
-    public User(String id, String username, String password, String email, String fullname, String address, String role, String photo, String lastLogin) {
+    public User(String id, String email, String password, String fullname, String address, String role, String photo, String lastLogin) {
         this.id = id;
-        this.username = username;
         this.password = password;
         this.email = email;
         this.fullname = fullname;
@@ -35,14 +34,6 @@ public class User {
         return this;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public User setUsername(String username) {
-        this.username = username;
-        return this;
-    }
 
     public String getPassword() {
         return password;
