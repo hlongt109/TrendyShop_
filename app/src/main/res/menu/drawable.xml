@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <item
+        android:id="@+id/itemOder"
+        android:icon="@drawable/odersicon"
+        android:title="Orders" />
+    <item
+        android:id="@+id/itemDetails"
+        android:icon="@drawable/detailicon"
+        android:title="My Details" />
+    <item
+        android:id="@+id/itemAddress"
+        android:icon="@drawable/deliceryaddress"
+        android:title="Delivery Address" />
+    <item
+        android:id="@+id/itemPayment"
+        android:icon="@drawable/payicon"
+        android:title="Payment Methods" />
+    <item
+        android:id="@+id/itemPromo"
+        android:icon="@drawable/promocordicon"
+        android:title="Promo Cord" />
+    <item
+        android:id="@+id/itemNotification"
+        android:icon="@drawable/notificationicon"
+        android:title="Notifecations" />
+    <item
+        android:id="@+id/itemHelp"
+        android:icon="@drawable/helpicon"
+        android:title="Help" />
+    <item
+        android:id="@+id/itemAbout"
+        android:icon="@drawable/abouticon"
+        android:title="About" />
+
+    <item
+        android:id="@+id/item_logOut"
+        android:title="Log out"
+        />
+
+</menu>

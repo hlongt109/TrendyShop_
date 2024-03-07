@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">TrendyShop</string>
+    <string name="navigation_drawer_open">open\n</string>
+    <string name="navigation_drawer_close">close\n</string>
+    <string name="title_toolbar"><b>Trendy Shop</b></string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_order"><b>Order</b></string>
+    <string name="title_Details"><b>Details</b></string>
+    <string name="title_Delivety"><b>Delivery Address</b></string>
+    <string name="title_payment"><b>Payment</b></string>
+    <string name="title_promo"><b>Promo Cord</b></string>
+    <string name="title_Notification"><b>Notification</b></string>
+    <string name="title_help"><b>Help</b></string>
+    <string name="title_about"><b>About</b></string>
 </resources>
