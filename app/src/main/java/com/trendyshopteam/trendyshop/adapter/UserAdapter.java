@@ -39,7 +39,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.myViewHolder>{
         User user = list.get(position);
         holder.setData(user);
         holder.binding.btnMore.setOnClickListener(v -> {
-            onClickUser.onClickUser(user,holder.itemView);
+            onClickUser.onClickUser(user,v);
         });
     }
 

@@ -10,6 +10,7 @@ import android.view.View;
 import androidx.annotation.Nullable;
 
 import com.github.dhaval2404.imagepicker.ImagePicker;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.trendyshopteam.trendyshop.R;
@@ -20,16 +21,18 @@ import com.trendyshopteam.trendyshop.interfaces.CreateUserInterface;
 public class CreateUserPresenter {
     private CreateUserInterface createUserInterface;
     private ActivityCreateUserBinding binding;
+    private FirebaseAuth auth;
     private UserDAO userDAO;
     private Uri ImageUri = null;
 
     public CreateUserPresenter(CreateUserInterface createUserInterface, ActivityCreateUserBinding binding) {
         this.createUserInterface = createUserInterface;
         this.binding = binding;
+        this.auth = FirebaseAuth.getInstance();
 
     }
 
-    public void SetListener() {
+    public void listener() {
         binding.btnBack.setOnClickListener(v -> createUserInterface.getActivity().onBackPressed());
         binding.imgAvt.setOnClickListener(v -> {
             ImagePicker.with(createUserInterface.getActivity())
@@ -41,11 +44,11 @@ public class CreateUserPresenter {
         binding.btnAdd.setOnClickListener(v -> {
             if (isValidDetails()) {
                 userDAO = new UserDAO(createUserInterface);
-                userDAO.checkUserNameExist(binding.edUsername.getText().toString().trim(), isExists -> {
+                userDAO.checkEmailExist(String.valueOf(binding.edEmail.getText()).trim(), isExists -> {
                     if (isExists) {
-                        createUserInterface.isUsernameExists();
+                        createUserInterface.isEmailExist();
                     } else {
-                        createUserInterface.clearUsernameErr();
+                        createUserInterface.clearEmailErr();
                         addData();
                     }
                 });
@@ -56,25 +59,29 @@ public class CreateUserPresenter {
     private void addData() {
         loading(true);
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("User");
-        String id = databaseReference.push().getKey();
-        String usn = binding.edUsername.getText().toString().trim();
         String pas = binding.edPw.getText().toString().trim();
-        String name = binding.edFullName.getText().toString().trim();
         String email = binding.edEmail.getText().toString().trim();
-        String role = "";
+        String name = binding.edFullName.getText().toString().trim();
+        String  role;
         if (binding.rdoNhanVien.isChecked()) {
             role = "NhanVien";
         } else if (binding.rdoAdmin.isChecked()) {
             role = "Admin";
-        }
-        if (id != null) {
-            userDAO = new UserDAO(createUserInterface);
-            userDAO.CreateNewUser(id, usn, pas, email, name, role, ImageUri, databaseReference);
-            resetFields();
         } else {
-            Log.e("Err", "Error creating id user");
-            resetFields();
+            role = "";
         }
+        auth.createUserWithEmailAndPassword(email,pas).addOnCompleteListener(task -> {
+            if(task.isSuccessful()){
+                String id = auth.getCurrentUser().getUid();
+                    userDAO = new UserDAO(createUserInterface);
+                    userDAO.CreateNewUser(id, email, pas, name, role, ImageUri, databaseReference);
+                    resetFields();
+            }
+        }).addOnFailureListener(e -> {
+            Log.e("Create user error ", "Error :"+e);
+            createUserInterface.addFailure();
+        });
+
     }
 
     public void handleImagePickerResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -97,16 +104,10 @@ public class CreateUserPresenter {
     }
 
     private Boolean isValidDetails() {
-        String usn = binding.edUsername.getText().toString().trim();
         String pw = binding.edPw.getText().toString().trim();
         String name = binding.edFullName.getText().toString().trim();
         String email = binding.edEmail.getText().toString().trim();
-        if (usn.isEmpty() || pw.isEmpty() || name.isEmpty() || email.isEmpty() || binding.rdoGroup.getCheckedRadioButtonId() == -1 || ImageUri == null) {
-            if (usn.isEmpty()) {
-                createUserInterface.isUsernameEmpty();
-            } else {
-                createUserInterface.clearUsernameErr();
-            }
+        if ( pw.isEmpty() || name.isEmpty() || email.isEmpty() || binding.rdoGroup.getCheckedRadioButtonId() == -1 || ImageUri == null) {
             if (pw.isEmpty()) {
                 createUserInterface.isPassEmpty();
             } else {
@@ -140,7 +141,6 @@ public class CreateUserPresenter {
         ImageUri = null;
         binding.edEmail.setText("");
         binding.edPw.setText("");
-        binding.edUsername.setText("");
         binding.edFullName.setText("");
         binding.imgAvt.setImageResource(R.drawable.ic_camera);
     }

@@ -25,7 +25,7 @@ public class CreateUserActivity extends AppCompatActivity implements CreateUserI
         binding = ActivityCreateUserBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         presenter = new CreateUserPresenter(this, binding);
-        presenter.SetListener();
+        presenter.listener();
 
     }
 
@@ -34,16 +34,11 @@ public class CreateUserActivity extends AppCompatActivity implements CreateUserI
         return this;
     }
 
-    @Override
-    public void isUsernameEmpty() {
-        binding.tilUsername.setError("Vui lòng nhập username");
-    }
 
     @Override
-    public void isUsernameExists() {
-        binding.tilUsername.setError("Username đã tồn tại");
+    public void isEmailExist() {
+        binding.tilEmail.setError("Email already exist");
     }
-
     @Override
     public void isPassEmpty() {
         binding.tilPw.setError("Vui lòng nhập password");
@@ -59,10 +54,6 @@ public class CreateUserActivity extends AppCompatActivity implements CreateUserI
         binding.tilEmail.setError("Vui lòng nhập email");
     }
 
-    @Override
-    public void clearUsernameErr() {
-        binding.tilUsername.setError(null);
-    }
     @Override
     public void clearPasswordErr() {
          binding.tilPw.setError(null);
