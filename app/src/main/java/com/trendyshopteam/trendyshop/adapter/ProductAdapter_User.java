@@ -1,4 +1,4 @@
 package com.trendyshopteam.trendyshop.adapter;
 
-public class ProductAdapter {
+public class ProductAdapter_User {
 }

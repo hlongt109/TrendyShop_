@@ -1,5 +1,6 @@
 package com.trendyshopteam.trendyshop.adapter;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,8 +10,18 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.trendyshopteam.trendyshop.R;
+import com.trendyshopteam.trendyshop.model.ProductType;
 
-public class ProductTypeAdapter extends RecyclerView.Adapter<ProductTypeAdapter.ViewHolder>{
+import java.util.ArrayList;
+
+public class ProductTypeAdapter_User extends RecyclerView.Adapter<ProductTypeAdapter_User.ViewHolder>{
+    private Context context;
+    private ArrayList<ProductType> list;
+
+    public ProductTypeAdapter_User(Context context, ArrayList<ProductType> list) {
+        this.context = context;
+        this.list = list;
+    }
 
     @NonNull
     @Override
@@ -21,12 +32,13 @@ public class ProductTypeAdapter extends RecyclerView.Adapter<ProductTypeAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-
+        ProductType productType = list.get(position);
+        holder.tv_typeProduct.setText(productType.getTypeName());
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return list.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder{
