@@ -13,10 +13,12 @@ import androidx.core.view.GravityCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.navigation.NavigationView;
 import com.trendyshopteam.trendyshop.R;
+import com.trendyshopteam.trendyshop.adapter.ProductTypeAdapter_User;
 import com.trendyshopteam.trendyshop.databinding.ActivityMainManagerBinding;
 import com.trendyshopteam.trendyshop.databinding.ActivityMainUserBinding;
 import com.trendyshopteam.trendyshop.view.fragments.AboutFragment;
@@ -34,6 +36,8 @@ public class MainUserActivity extends AppCompatActivity {
     private ActivityMainUserBinding binding;
     private DrawerLayout drawerLayout;
 
+    String productTypeId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,10 +52,14 @@ public class MainUserActivity extends AppCompatActivity {
         NavigationView navigationView = binding.navView;
 
         //flagment
-        FragmentTransaction fragment = getSupportFragmentManager().beginTransaction();
 
+        productTypeId = getIntent().getStringExtra("ProductTypeId");
+        Fragment fragment = new MainUserFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("TypeId", productTypeId);
+        fragment.setArguments(bundle);
         if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fl_mainFragment, new MainUserFragment()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fl_mainFragment, fragment).commit();
         }
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
