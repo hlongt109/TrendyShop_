@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    tools:context=".view.activities.productDetail_Activity">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="390dp"
+        android:src="@drawable/levi"
+        android:scaleType="centerCrop"
+        android:id="@+id/image_favorite"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="360dp"
+        android:src="@drawable/tru"
+        android:id="@+id/tru"/>
+    
+    <androidx.cardview.widget.CardView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        app:cardCornerRadius="10dp"
+        android:backgroundTint="#21262E"
+        android:layout_margin="10dp"
+        app:cardElevation="10dp"
+        android:id="@+id/back_favorite"
+        android:padding="10dp">
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            app:tint="#383A3E"
+            android:src="@drawable/arrow_back"/>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        app:cardCornerRadius="10dp"
+        android:backgroundTint="#21262E"
+        android:layout_margin="10dp"
+        android:id="@+id/add_favorite"
+        android:layout_alignParentRight="true"
+        app:cardElevation="10dp"
+        android:padding="10dp">
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="center"
+            app:tint="#383A3E"
+            android:src="@drawable/favorite"/>
+    </androidx.cardview.widget.CardView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="550dp"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/view1"
+        android:layout_below="@+id/tru"
+        android:background="@drawable/view_favorite"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/image_favorite"
+        android:id="@+id/view2"
+        android:layout_marginHorizontal="20dp"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nike"
+                android:textColor="#ddd"
+                android:id="@+id/txt_nameProductType"
+                android:textSize="16dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Nike Swoosh"
+                    android:id="@+id/txt_nameProduct"
+                    android:textColor="#000"
+                    android:textSize="18dp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:layout_weight="1"
+                    android:text="2.900.000 đ"
+                    android:id="@+id/txt_priceProduct"
+                    android:textSize="18dp"
+                    android:textColor="#000"
+                    android:textStyle="bold"/>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/view2"
+        android:padding="5dp"
+        android:id="@+id/view3"
+        android:layout_marginHorizontal="14dp"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/linearStars"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="4.5"
+            android:id="@+id/txt_rate"
+            android:textSize="14dp"
+            android:layout_marginTop="2dp"
+            android:textColor="#000"
+            android:layout_marginLeft="10dp"
+            android:textStyle="bold"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="105dp"
+        android:layout_height="30dp"
+        android:layout_below="@+id/view3"
+        android:gravity="center"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="20dp"
+        android:id="@+id/view4"
+        android:background="@drawable/backgroud_quantity"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_giam"
+            android:padding="10dp"
+            android:src="@drawable/tru"/>
+
+        <TextView
+            android:layout_width="15dp"
+            android:layout_height="wrap_content"
+            android:text="1"
+            android:id="@+id/txt_quantity"
+            android:textSize="14dp"
+            android:textColor="#000"
+            android:layout_marginLeft="10dp"
+            android:textStyle="bold"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_cong"
+            android:padding="10dp"
+            android:src="@drawable/cong"/>
+    </LinearLayout>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_below="@+id/view4"
+        android:id="@+id/view5"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginTop="15dp"
+        android:orientation="vertical">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="150dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="5dp"
+                    android:text="DESCRIPTION"
+                    android:textColor="#000"
+                    android:textSize="11dp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginTop="9dp"
+                    android:layout_marginLeft="5dp"
+                    android:id="@+id/txtdes"
+                    android:text="Go bigger with the Swoosh. Our full-zip, woven jacket is a versatile, water-repellent outer layer that helps shield you from the elements. It has a concealed hood you can unpack for those windy, rainy days."
+                    android:textColor="#A9A9A9"
+                    android:textSize="10dp" />
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/view5"
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="bottom"
+            android:layout_marginHorizontal="15dp"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:id="@+id/view6"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="5dp"
+                    android:text="SELECT SIZE"
+                    android:textColor="#000"
+                    android:textSize="11dp"
+                    android:textStyle="bold"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginHorizontal="5dp"
+                    android:orientation="horizontal">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        app:cardBackgroundColor="#F1F4FB"
+                        android:onClick="onSizeClick">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="S"
+                            android:textColor="#000"
+                            android:textSize="16dp"
+                            android:id="@+id/size_S"
+                            android:textStyle="bold"
+                            android:tag="S"/>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        app:cardBackgroundColor="#F1F4FB"
+                        android:layout_marginLeft="10dp"
+                        android:onClick="onSizeClick">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="M"
+                            android:textColor="#000"
+                            android:textSize="16dp"
+                            android:id="@+id/size_M"
+                            android:textStyle="bold"
+                            android:tag="M"/>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        app:cardBackgroundColor="#F1F4FB"
+                        android:layout_marginLeft="10dp"
+                        android:onClick="onSizeClick">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="L"
+                            android:textColor="#000"
+                            android:textSize="16dp"
+                            android:id="@+id/size_L"
+                            android:textStyle="bold"
+                            android:tag="L"/>
+                    </androidx.cardview.widget.CardView>
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:id="@+id/btn_addToCart"
+                android:text="ADD TO CARD"
+                android:textStyle="bold"
+                android:drawableLeft="@drawable/cart_icon"
+                android:backgroundTint="#6342E8"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:id="@+id/btn_buyNow"
+                android:text="BUY NOW"
+                android:textStyle="bold"
+                android:layout_marginBottom="5dp"
+                android:drawableLeft="@drawable/buy_icon"
+                android:backgroundTint="#D042E8"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</RelativeLayout>

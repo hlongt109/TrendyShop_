@@ -112,7 +112,6 @@ public class ProductType_Adapter extends RecyclerView.Adapter<ProductType_Adapte
 
         holder.itemView.setOnClickListener(view -> {
             String productTypeId = Pdt.getProductTypeId();
-            Log.d("productTypeId", "onBindViewHolder: " + productTypeId);
             Intent intent = new Intent(view.getContext(), ProductManage_Activity.class);
             intent.putExtra("Product_Type_Id", productTypeId);
             view.getContext().startActivity(intent);

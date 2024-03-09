@@ -3,17 +3,16 @@ package com.trendyshopteam.trendyshop.model;
 public class BillDetail {
     private String billDetailId, billId, productId;
     private int quantity;
-    private Double priceProduct, total;
+    private Double total;
 
     public BillDetail() {
     }
 
-    public BillDetail(String billDetailId, String billId, String productId, int quantity, Double priceProduct, Double total) {
+    public BillDetail(String billDetailId, String billId, String productId, int quantity, Double total) {
         this.billDetailId = billDetailId;
         this.billId = billId;
         this.productId = productId;
         this.quantity = quantity;
-        this.priceProduct = priceProduct;
         this.total = total;
     }
 
@@ -47,14 +46,6 @@ public class BillDetail {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
-    }
-
-    public Double getPriceProduct() {
-        return priceProduct;
-    }
-
-    public void setPriceProduct(Double priceProduct) {
-        this.priceProduct = priceProduct;
     }
 
     public Double getTotal() {
