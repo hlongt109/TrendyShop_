@@ -113,6 +113,10 @@ public class ProductManage_Activity extends AppCompatActivity {
         binding.rcv2ProductManage.setAdapter(adapter);
 
         binding.addProductManage.setOnClickListener(view -> addProductDiaLog());
+        binding.backProductManage.setOnClickListener(v -> {
+            startActivity(new Intent(this,ProductTypeManage_Activity.class));
+            finish();
+        });
     }
 
     private void addProductDiaLog(){

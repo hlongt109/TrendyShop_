@@ -1,5 +1,7 @@
 package com.trendyshopteam.trendyshop.view.activities.UserActivitys;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,10 +19,15 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.trendyshopteam.trendyshop.R;
 import com.trendyshopteam.trendyshop.adapter.ProductTypeAdapter_User;
 import com.trendyshopteam.trendyshop.databinding.ActivityMainManagerBinding;
 import com.trendyshopteam.trendyshop.databinding.ActivityMainUserBinding;
+import com.trendyshopteam.trendyshop.view.activities.CartActivity;
+import com.trendyshopteam.trendyshop.view.activities.Favorite_Activity;
+import com.trendyshopteam.trendyshop.view.activities.LoginActivity;
+import com.trendyshopteam.trendyshop.view.activities.Notification_Activity;
 import com.trendyshopteam.trendyshop.view.fragments.AboutFragment;
 import com.trendyshopteam.trendyshop.view.fragments.DeliverAddressFragment;
 import com.trendyshopteam.trendyshop.view.fragments.DetailsFragment;
@@ -35,6 +42,7 @@ import com.trendyshopteam.trendyshop.view.fragments.PromoFragment;
 public class MainUserActivity extends AppCompatActivity {
     private ActivityMainUserBinding binding;
     private DrawerLayout drawerLayout;
+    private Context context = this;
 
     String productTypeId;
 
@@ -68,7 +76,8 @@ public class MainUserActivity extends AppCompatActivity {
                 int itemID = menuItem.getItemId();
 
                 if (itemID == R.id.itemOder) {
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fl_mainFragment, new OrderFragment()).commit();
+                    startActivity(new Intent(context, CartActivity.class));
+//                    getSupportFragmentManager().beginTransaction().replace(R.id.fl_mainFragment, new OrderFragment()).commit();
                     toolbar.setTitle(R.string.title_order);
                 } else if (itemID == R.id.itemDetails) {
                     getSupportFragmentManager().beginTransaction().replace(R.id.fl_mainFragment, new DetailsFragment()).commit();
@@ -91,6 +100,10 @@ public class MainUserActivity extends AppCompatActivity {
                 } else if (itemID == R.id.itemAbout) {
                     getSupportFragmentManager().beginTransaction().replace(R.id.fl_mainFragment, new AboutFragment()).commit();
                     toolbar.setTitle(R.string.title_about);
+                } else if (itemID == R.id.item_logOut) {
+                    FirebaseAuth.getInstance().signOut();
+                    startActivity(new Intent(context, LoginActivity.class));
+                    finishAffinity();
                 }
                 drawerLayout.closeDrawer(GravityCompat.END);
                 return true;
@@ -126,11 +139,11 @@ public class MainUserActivity extends AppCompatActivity {
             }
             drawerLayout.openDrawer(GravityCompat.END);
         } else if (id == R.id.icon_cart) {
-            //đến màn hình cart
+            startActivity(new Intent(context, CartActivity.class));
         } else if (id == R.id.icon_favorite) {
-            //đến màn hình avorite
+            startActivity(new Intent(context, Favorite_Activity.class));
         } else if (id == R.id.icon_notification) {
-            //đến màn hình thông báo
+            startActivity(new Intent(context, Notification_Activity.class));
         }
 
         return super.onOptionsItemSelected(item);

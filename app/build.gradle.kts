@@ -56,6 +56,7 @@ dependencies {
     implementation("com.google.firebase:firebase-auth")
     implementation ("com.google.firebase:firebase-firestore")
     implementation ("com.firebaseui:firebase-ui-database:8.0.0")
+    implementation ("com.firebaseui:firebase-ui-database:8.0.0")
     // animation
     implementation ("com.airbnb.android:lottie:6.3.0")
     // glide

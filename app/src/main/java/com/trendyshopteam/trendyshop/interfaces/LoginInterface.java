@@ -11,4 +11,6 @@ public interface LoginInterface {
     void setLoading();
     void stopLoading();
     void clearError();
+    void switchAdminScreen();
+    void switchUserScreen();
 }

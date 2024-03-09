@@ -104,6 +104,10 @@ public class ProductTypeManage_Activity extends AppCompatActivity {
                 addProductTypeDiaLog();
             }
         });
+        binding.backProductTypeManage.setOnClickListener(v -> {
+            startActivity(new Intent(this, MainManager.class));
+            finishAffinity();
+        });
     }
 
     private void addProductTypeDiaLog() {

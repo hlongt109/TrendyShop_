@@ -27,6 +27,10 @@ public class UserManager extends AppCompatActivity implements UserManageInterfac
         binding.btnAdd.setOnClickListener(v -> {
             presenter.addNewUser();
         });
+        binding.btnBack.setOnClickListener(v -> {
+            startActivity(new Intent(this, MainManager.class));
+            finishAffinity();
+        });
     }
 
     @Override

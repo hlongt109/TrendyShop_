@@ -9,15 +9,33 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.trendyshopteam.trendyshop.R;
 import com.trendyshopteam.trendyshop.databinding.ActivityMainManagerBinding;
+import com.trendyshopteam.trendyshop.databinding.HeaderDrawBinding;
+import com.trendyshopteam.trendyshop.databinding.LayoutSelectPaymentMethodBinding;
 import com.trendyshopteam.trendyshop.presenter.MainManagePresenter;
+import com.trendyshopteam.trendyshop.utilities.SharePreferencesManage;
 import com.trendyshopteam.trendyshop.view.fragments.AboutFragment;
 import com.trendyshopteam.trendyshop.view.fragments.DeliverAddressFragment;
 import com.trendyshopteam.trendyshop.view.fragments.DetailsFragment;
@@ -31,6 +49,9 @@ import com.trendyshopteam.trendyshop.view.fragments.PromoFragment;
 public class MainManager extends AppCompatActivity {
     private ActivityMainManagerBinding binding;
     private DrawerLayout drawerLayout;
+    private HeaderDrawBinding headerDrawBinding;
+    private Context context = this;
+    private SharePreferencesManage preferencesManage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,34 +81,31 @@ public class MainManager extends AppCompatActivity {
                 if (itemID == R.id.itemOder) {
                     getSupportFragmentManager().beginTransaction().replace(R.id.fl_mainFragment, new OrderFragment()).commit();
                     toolbar.setTitle(R.string.title_order);
-                }
-                else if (itemID == R.id.itemDetails) {
+                } else if (itemID == R.id.itemDetails) {
                     getSupportFragmentManager().beginTransaction().replace(R.id.fl_mainFragment, new DetailsFragment()).commit();
                     toolbar.setTitle(R.string.title_Details);
-                }
-                else if (itemID == R.id.itemAddress) {
+                } else if (itemID == R.id.itemAddress) {
                     getSupportFragmentManager().beginTransaction().replace(R.id.fl_mainFragment, new DeliverAddressFragment()).commit();
                     toolbar.setTitle(R.string.title_Delivety);
-                }
-                else if (itemID == R.id.itemPayment) {
+                } else if (itemID == R.id.itemPayment) {
                     getSupportFragmentManager().beginTransaction().replace(R.id.fl_mainFragment, new PaymentFragment()).commit();
                     toolbar.setTitle(R.string.title_payment);
-                }
-                else if (itemID == R.id.itemPromo) {
+                } else if (itemID == R.id.itemPromo) {
                     getSupportFragmentManager().beginTransaction().replace(R.id.fl_mainFragment, new PromoFragment()).commit();
                     toolbar.setTitle(R.string.title_promo);
-                }
-                else if (itemID == R.id.itemNotification) {
+                } else if (itemID == R.id.itemNotification) {
                     getSupportFragmentManager().beginTransaction().replace(R.id.fl_mainFragment, new NotificationFragment()).commit();
                     toolbar.setTitle(R.string.title_Notification);
-                }
-                else if (itemID == R.id.itemHelp) {
+                } else if (itemID == R.id.itemHelp) {
                     getSupportFragmentManager().beginTransaction().replace(R.id.fl_mainFragment, new HelpFragment()).commit();
                     toolbar.setTitle(R.string.title_help);
-                }
-                else if (itemID == R.id.itemAbout) {
+                } else if (itemID == R.id.itemAbout) {
                     getSupportFragmentManager().beginTransaction().replace(R.id.fl_mainFragment, new AboutFragment()).commit();
                     toolbar.setTitle(R.string.title_about);
+                } else if (itemID == R.id.item_logOut) {
+                    FirebaseAuth.getInstance().signOut();
+                    startActivity(new Intent(context, LoginActivity.class));
+                    finishAffinity();
                 }
                 drawerLayout.closeDrawer(GravityCompat.END);
                 return true;
@@ -96,7 +114,33 @@ public class MainManager extends AppCompatActivity {
 
 
     }
-
+//    @SuppressLint("MissingInflatedId")
+//    private void init(){
+//        preferencesManage = new SharePreferencesManage(context);
+//        String uId = preferencesManage.getUserId();
+//        LayoutInflater inflater = ((Activity)context ).getLayoutInflater();
+//        headerDrawBinding = HeaderDrawBinding.inflate(inflater);
+//        View view = headerDrawBinding.getRoot();
+//        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("User").child(uId);
+//        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                if (snapshot.exists()) {
+//                    headerDrawBinding.tvFullName.setText(snapshot.child("email").getValue(String.class));
+//                    headerDrawBinding.tvFullName.setText(snapshot.child("fullname").getValue(String.class));
+//                    Glide.with(context).load(snapshot.child("photo").getValue(String.class)).error(R.drawable.image).into( headerDrawBinding.imageUser);
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
+//        setContentView(R.layout.activity_main_manager);
+//         ViewGroup mainGroup = findViewById(R.id.toolBar);
+//        mainGroup.addView(view,0);
+//    }
     @Override
     public void onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.END)) {
@@ -121,9 +165,16 @@ public class MainManager extends AppCompatActivity {
             if (drawerLayout.isDrawerOpen(GravityCompat.END)) {
                 drawerLayout.closeDrawer(GravityCompat.END);
             }
+
             drawerLayout.openDrawer(GravityCompat.END);
         }
 
+        if (id == R.id.icon_favorite) {
+            startActivity(new Intent(context, Favorite_Activity.class));
+        }
+        if (id == R.id.icon_notification) {
+            startActivity(new Intent(context, Notification_Activity.class));
+        }
         return super.onOptionsItemSelected(item);
     }
 

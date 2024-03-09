@@ -23,6 +23,7 @@ import java.util.ArrayList;
 public class BillManage_Activity extends AppCompatActivity {
     private ActivityBillManageBinding binding;
     private Bill_Adapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +37,13 @@ public class BillManage_Activity extends AppCompatActivity {
         adapter = new Bill_Adapter(options);
         binding.rcvBillManage.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+        binding.backBillManage.setOnClickListener(v -> {
+            startActivity(new Intent(this, MainManager.class));
+            finish();
+        });
+        binding.notificationBillManage.setOnClickListener(v -> {
+            startActivity(new Intent(this, Notification_Activity.class));
+        });
 
     }
 

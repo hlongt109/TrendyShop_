@@ -11,7 +11,12 @@ import android.view.ViewGroup;
 
 import com.trendyshopteam.trendyshop.R;
 import com.trendyshopteam.trendyshop.databinding.FragmentMainManageBinding;
+import com.trendyshopteam.trendyshop.model.ProductType;
+import com.trendyshopteam.trendyshop.view.activities.BillManage_Activity;
 import com.trendyshopteam.trendyshop.view.activities.MainActivity;
+import com.trendyshopteam.trendyshop.view.activities.ProductManage_Activity;
+import com.trendyshopteam.trendyshop.view.activities.ProductTypeManage_Activity;
+import com.trendyshopteam.trendyshop.view.activities.UserManager;
 
 public class MainManageFragment extends Fragment {
 
@@ -27,7 +32,7 @@ public class MainManageFragment extends Fragment {
        binding.billManage.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View view) {
-               //chuyển sang màn hình billManage
+               startActivity(new Intent(getContext(), BillManage_Activity.class));
            }
        });
 
@@ -35,6 +40,7 @@ public class MainManageFragment extends Fragment {
            @Override
            public void onClick(View view) {
                //chuyển sang màn hình Product Manage
+               startActivity(new Intent(getContext(), ProductTypeManage_Activity.class));
            }
        });
 
@@ -42,6 +48,7 @@ public class MainManageFragment extends Fragment {
            @Override
            public void onClick(View view) {
                //chuyển sang màn hình User manage
+               startActivity(new Intent(getContext(), UserManager.class));
            }
        });
 
@@ -49,6 +56,7 @@ public class MainManageFragment extends Fragment {
            @Override
            public void onClick(View view) {
                //chuyển sang màn hình statistical
+
            }
        });
 

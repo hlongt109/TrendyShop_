@@ -18,7 +18,7 @@ public class Notification_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityNotificationBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
+        binding.btnBackNotification.setOnClickListener(v -> onBackPressed());
 
     }
 }
