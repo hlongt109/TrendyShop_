@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_centerVertical="true"
+    android:layout_centerHorizontal="true"
     android:background="#fff"
-    android:padding="10dp">
+    app:cardUseCompatPadding="true"
+    android:padding="20dp">
         
         <androidx.cardview.widget.CardView
             android:layout_width="185dp"
@@ -43,23 +47,25 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/name_favorite"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Nike swoosh"
-                        android:textSize="10dp"
                         android:textColor="#000"
+                        android:textSize="10dp"
                         android:textStyle="bold"
-                        android:id="@+id/name_favorite"/>
+                        tools:ignore="TextSizeCheck" />
 
                     <TextView
+                        android:id="@+id/price_favorite"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="1.000.000 đ"
-                        android:textSize="12dp"
-                        android:textColor="#000"
-                        android:textStyle="bold"
                         android:layout_marginTop="5dp"
-                        android:id="@+id/price_favorite"/>
+                        android:text="1.000.000 đ"
+                        android:textColor="#000"
+                        android:textSize="12dp"
+                        android:textStyle="bold"
+                        tools:ignore="TextSizeCheck" />
                 </LinearLayout>
 
             </RelativeLayout>

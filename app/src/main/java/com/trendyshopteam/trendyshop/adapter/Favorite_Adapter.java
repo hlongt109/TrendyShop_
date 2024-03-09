@@ -1,5 +1,6 @@
 package com.trendyshopteam.trendyshop.adapter;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import com.google.firebase.database.Query;
 import com.trendyshopteam.trendyshop.R;
 import com.trendyshopteam.trendyshop.model.Favorite;
 import com.trendyshopteam.trendyshop.model.Product;
+import com.trendyshopteam.trendyshop.view.activities.productDetail_Activity;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -56,6 +58,12 @@ public class Favorite_Adapter extends FirebaseRecyclerAdapter<Favorite, Favorite
 
                     }
                 });
+
+        holder.itemView.setOnClickListener(view -> {
+            Intent intent = new Intent(view.getContext(), productDetail_Activity.class);
+            intent.putExtra("productId", productId);
+            view.getContext().startActivity(intent);
+        });
 
     }
 

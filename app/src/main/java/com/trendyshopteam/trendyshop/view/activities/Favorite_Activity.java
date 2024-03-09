@@ -45,6 +45,7 @@ public class Favorite_Activity extends AppCompatActivity {
                 .build();
         adapter = new Favorite_Adapter(options);
         binding.rcvFavorite.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
 
     }
 
