@@ -32,6 +32,7 @@ import com.trendyshopteam.trendyshop.view.fragments.AboutFragment;
 import com.trendyshopteam.trendyshop.view.fragments.DeliverAddressFragment;
 import com.trendyshopteam.trendyshop.view.fragments.DetailsFragment;
 import com.trendyshopteam.trendyshop.view.fragments.FragmentUser.MainUserFragment;
+import com.trendyshopteam.trendyshop.view.fragments.FragmentUser.OrderHistoryFragment;
 import com.trendyshopteam.trendyshop.view.fragments.HelpFragment;
 import com.trendyshopteam.trendyshop.view.fragments.MainManageFragment;
 import com.trendyshopteam.trendyshop.view.fragments.NotificationFragment;
@@ -104,6 +105,8 @@ public class MainUserActivity extends AppCompatActivity {
                     FirebaseAuth.getInstance().signOut();
                     startActivity(new Intent(context, LoginActivity.class));
                     finishAffinity();
+                } else if (itemID == R.id.item_orderhistory) {
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fl_mainFragment, new OrderHistoryFragment()).commit();
                 }
                 drawerLayout.closeDrawer(GravityCompat.END);
                 return true;
