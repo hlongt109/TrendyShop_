@@ -1,16 +1,20 @@
 package com.trendyshopteam.trendyshop.model;
 
 public class Bill {
-    String billId, userId, address, timestamp;
-    Double totalAmount;
+    private String billId, userId, address, timestamp;
+    private Double totalAmount;
+    private int status;
+
     public Bill() {
     }
-    public Bill(String billId, String userId, String address, String timestamp, Double totalAmount) {
+
+    public Bill(String billId, String userId, String address, String timestamp, Double totalAmount, int status) {
         this.billId = billId;
         this.userId = userId;
         this.address = address;
         this.timestamp = timestamp;
         this.totalAmount = totalAmount;
+        this.status = status;
     }
 
     public String getBillId() {
@@ -51,5 +55,13 @@ public class Bill {
 
     public void setTotalAmount(Double totalAmount) {
         this.totalAmount = totalAmount;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 }
