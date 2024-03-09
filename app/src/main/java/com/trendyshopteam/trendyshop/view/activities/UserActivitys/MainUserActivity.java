@@ -4,35 +4,28 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.graphics.Insets;
 import androidx.core.view.GravityCompat;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.navigation.NavigationView;
 import com.trendyshopteam.trendyshop.R;
-import com.trendyshopteam.trendyshop.adapter.ProductTypeAdapter_User;
-import com.trendyshopteam.trendyshop.databinding.ActivityMainManagerBinding;
 import com.trendyshopteam.trendyshop.databinding.ActivityMainUserBinding;
 import com.trendyshopteam.trendyshop.view.fragments.AboutFragment;
 import com.trendyshopteam.trendyshop.view.fragments.DeliverAddressFragment;
 import com.trendyshopteam.trendyshop.view.fragments.DetailsFragment;
+import com.trendyshopteam.trendyshop.view.fragments.FragmentUser.OrderHistoryFragment;
+import com.trendyshopteam.trendyshop.view.fragments.FragmentUser.ChangePasswordFragment;
 import com.trendyshopteam.trendyshop.view.fragments.FragmentUser.MainUserFragment;
 import com.trendyshopteam.trendyshop.view.fragments.HelpFragment;
-import com.trendyshopteam.trendyshop.view.fragments.MainManageFragment;
 import com.trendyshopteam.trendyshop.view.fragments.NotificationFragment;
 import com.trendyshopteam.trendyshop.view.fragments.OrderFragment;
 import com.trendyshopteam.trendyshop.view.fragments.PaymentFragment;
 import com.trendyshopteam.trendyshop.view.fragments.PromoFragment;
 
-public class MainUserActivity extends AppCompatActivity {
+public class MainUserActivity extends AppCompatActivity{
     private ActivityMainUserBinding binding;
     private DrawerLayout drawerLayout;
 
@@ -53,13 +46,9 @@ public class MainUserActivity extends AppCompatActivity {
 
         //flagment
 
-        productTypeId = getIntent().getStringExtra("ProductTypeId");
-        Fragment fragment = new MainUserFragment();
-        Bundle bundle = new Bundle();
-        bundle.putString("TypeId", productTypeId);
-        fragment.setArguments(bundle);
+
         if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fl_mainFragment, fragment).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fl_mainFragment, new MainUserFragment()).commit();
         }
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -91,6 +80,12 @@ public class MainUserActivity extends AppCompatActivity {
                 } else if (itemID == R.id.itemAbout) {
                     getSupportFragmentManager().beginTransaction().replace(R.id.fl_mainFragment, new AboutFragment()).commit();
                     toolbar.setTitle(R.string.title_about);
+                } else if (itemID == R.id.changePass) {
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fl_mainFragment, new ChangePasswordFragment()).commit();
+                    toolbar.setTitle(R.string.title_changePass);
+                } else if (itemID == R.id.item_orderhistory) {
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fl_mainFragment, new OrderHistoryFragment()).commit();
+                    toolbar.setTitle(R.string.title_orderhistory);
                 }
                 drawerLayout.closeDrawer(GravityCompat.END);
                 return true;
@@ -135,5 +130,6 @@ public class MainUserActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 
 }
