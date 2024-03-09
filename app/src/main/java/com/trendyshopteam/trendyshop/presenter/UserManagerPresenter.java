@@ -231,7 +231,6 @@ public class UserManagerPresenter {
 
     private void updatePasswordInAuth(User user, String newPassword) {
         String userId = user.getId();
-
         FirebaseAuth.getInstance().signInWithEmailAndPassword(user.getEmail(), user.getPassword())
                 .addOnSuccessListener(authResult -> {
                     FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
