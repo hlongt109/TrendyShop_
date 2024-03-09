@@ -23,6 +23,10 @@
         android:icon="@drawable/promocordicon"
         android:title="Promo Cord" />
     <item
+        android:id="@+id/item_orderhistory"
+        android:icon="@drawable/file"
+        android:title="Order history" />
+    <item
         android:id="@+id/itemNotification"
         android:icon="@drawable/notificationicon"
         android:title="Notifecations" />
@@ -36,8 +40,12 @@
         android:title="About" />
 
     <item
+        android:id="@+id/changePass"
+        android:icon="@drawable/key"
+        android:title="Change password" />
+
+    <item
         android:id="@+id/item_logOut"
-        android:title="Log out"
-        />
+        android:title="Log out" />
 
 </menu>

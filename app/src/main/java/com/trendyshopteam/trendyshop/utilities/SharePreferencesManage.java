@@ -25,4 +25,7 @@ public class SharePreferencesManage {
     public String getPosition() {
         return sharedPreferences.getString(KEY_POSITION,"");
     }
+    public String getUserId(){
+        return sharedPreferences.getString(KEY_USERID,"");
+    }
 }

@@ -24,4 +24,6 @@
     <string name="title_Notification"><b>Notification</b></string>
     <string name="title_help"><b>Help</b></string>
     <string name="title_about"><b>About</b></string>
+    <string name="title_changePass"><b>Change password</b></string>
+    <string name="title_orderhistory"><b>Order history</b></string>
 </resources>

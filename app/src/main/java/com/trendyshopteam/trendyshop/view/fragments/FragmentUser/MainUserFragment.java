@@ -29,14 +29,16 @@ import com.trendyshopteam.trendyshop.model.ProductType;
 import java.util.ArrayList;
 
 
-public class MainUserFragment extends Fragment {
+public class MainUserFragment extends Fragment implements ProductTypeAdapter_User.OnClickItemType {
     private FragmentUserMainBinding binding;
-    ProductTypeAdapter_User adapterUser;
-    ProductAdapter_User adapterProduct;
-    FirebaseDatabase database, databaseProduct;
-    ArrayList<ProductType> list = new ArrayList<>();
-    String productTypeId;
-    ArrayList<Product> listProduct = new ArrayList<>();
+    private ProductTypeAdapter_User adapterUser;
+    private ProductAdapter_User adapterProduct;
+    private FirebaseDatabase database, databaseProduct;
+    private ArrayList<ProductType> list = new ArrayList<>();
+    private String productTypeId;
+    private ArrayList<Product> listProduct = new ArrayList<>();
+    private int selectedPisition;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -47,14 +49,25 @@ public class MainUserFragment extends Fragment {
 
         database = FirebaseDatabase.getInstance();
         databaseProduct = FirebaseDatabase.getInstance();
+
+        getAllProduct();
+        binding.tvAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectedPisition = -1;
+                adapterUser.selectedItem(selectedPisition);
+                getAllProduct();
+            }
+        });
+
         DatabaseReference productType = database.getReference("ProductType");
         productType.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 list.clear();
-                for(DataSnapshot dataSnapshot: snapshot.getChildren()){
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     ProductType productType1 = dataSnapshot.getValue(ProductType.class);
-                    if(productType1 != null){
+                    if (productType1 != null) {
                         list.add(productType1);
                     }
                 }
@@ -67,16 +80,14 @@ public class MainUserFragment extends Fragment {
             }
         });
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         binding.rcvTypeProduct.setLayoutManager(linearLayoutManager);
-        adapterUser = new ProductTypeAdapter_User(getContext(), list);
+        adapterUser = new ProductTypeAdapter_User(getContext(), list, this);
         binding.rcvTypeProduct.setAdapter(adapterUser);
 
 
         //
 
-        productTypeId = getArguments().getString("TypeId");
-        Log.d("TypeID", "id: " + productTypeId);
 
         DatabaseReference product = databaseProduct.getReference("Product");
 
@@ -85,9 +96,9 @@ public class MainUserFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 listProduct.clear();
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     Product product1 = dataSnapshot.getValue(Product.class);
-                    if(product1!=null){
+                    if (product1 != null) {
                         listProduct.add(product1);
                     }
                 }
@@ -99,9 +110,65 @@ public class MainUserFragment extends Fragment {
 
             }
         });
-        binding.rcvProduct.setLayoutManager(new GridLayoutManager(getContext(),2));
+
+        binding.rcvProduct.setLayoutManager(new GridLayoutManager(getContext(), 2));
         adapterProduct = new ProductAdapter_User(getContext(), listProduct);
         binding.rcvProduct.setAdapter(adapterProduct);
         return view;
+    }
+
+
+    @Override
+    public void onClickType(String typeId) {
+        productTypeId = typeId;
+        Log.d("TypeID", "id: " + typeId);
+        refreshProductList();
+    }
+
+    private void refreshProductList() {
+        // Query products based on the selected product type
+        DatabaseReference product = databaseProduct.getReference("Product");
+        Query query = product.orderByChild("productTypeId").equalTo(productTypeId);
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                listProduct.clear();
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    Product product1 = dataSnapshot.getValue(Product.class);
+                    if (product1 != null) {
+                        listProduct.add(product1);
+                    }
+                }
+                adapterProduct.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                // Handle error
+            }
+        });
+    }
+
+    private void getAllProduct(){
+        DatabaseReference allProduct = databaseProduct.getReference("Product");
+        allProduct.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                listProduct.clear();
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    Product product = dataSnapshot.getValue(Product.class);
+                    if (product != null) {
+                        listProduct.add(product);
+                    }
+                }
+                adapterProduct.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
     }
 }
