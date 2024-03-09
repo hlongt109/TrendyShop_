@@ -3,6 +3,7 @@ package com.trendyshopteam.trendyshop.model;
 public class User {
     private String id;
     private String email;
+    private String phone;
     private String password;
 
     private String fullname;
@@ -11,10 +12,11 @@ public class User {
     private String photo;
     private String lastLogin;
 
-    public User(String id, String email, String password, String fullname, String address, String role, String photo, String lastLogin) {
+    public User(String id, String email, String phone,String password, String fullname, String address, String role, String photo, String lastLogin) {
         this.id = id;
         this.password = password;
         this.email = email;
+        this.phone = phone;
         this.fullname = fullname;
         this.address = address;
         this.role = role;
@@ -50,6 +52,15 @@ public class User {
 
     public User setEmail(String email) {
         this.email = email;
+        return this;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public User setPhone(String phone) {
+        this.phone = phone;
         return this;
     }
 

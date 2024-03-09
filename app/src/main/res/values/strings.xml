@@ -11,4 +11,10 @@
     <string name="sign_up_to_get_started">Sign up to get started</string>
     <string name="already_have_an_account">Already have an account ?</string>
     <string name="choose_image">Choose image</string>
+    <string name="cart">Cart</string>
+    <string name="payment_methods">Payment methods:</string>
+    <string name="total_payment">Total payment:</string>
+    <string name="payment_confirmation">Payment Confirmation</string>
+    <string name="address">Address:</string>
+    <string name="phone_number">Phone number:</string>
 </resources>

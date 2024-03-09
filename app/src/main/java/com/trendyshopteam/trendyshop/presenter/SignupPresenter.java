@@ -58,7 +58,7 @@ public class SignupPresenter {
         auth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(task -> {
            if(task.isSuccessful()){
                String id = auth.getCurrentUser().getUid();
-               User user = new User(id,email,password,name,"","User","","");
+               User user = new User(id,email,"",password,name,"","User","","");
                reference.child(id).setValue(user).addOnCompleteListener(task1 -> {
                   signupInterface.signUpSucess();
                   loading(false);

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:background="@drawable/khung_qtt"
+    android:padding="8dp">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/imgProduct"
+        android:layout_width="115dp"
+        android:layout_height="95dp"
+        android:layout_marginEnd="10dp"
+        android:adjustViewBounds="true"
+        app:cardElevation="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/img_productCart"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop" />
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/txtProductName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="8dp"
+        android:text="Product Name"
+        android:textStyle="bold"
+        android:textColor="#474747"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@+id/guideline"
+        app:layout_constraintTop_toTopOf="parent" />
+
+        <CheckBox
+            android:id="@+id/imgChecked"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:tint="#4A4A8E"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtProductPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="8dp"
+        android:text="200.000 đ"
+        android:textColor="#FF5722"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/txtProductName" />
+
+    <RelativeLayout
+        android:id="@+id/layoutQuantity"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/txtProductPrice">
+        <TextView
+            android:id="@+id/tvSize"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textColor="#fff"
+            android:background="@drawable/bg_size"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:textSize="16sp"
+            />
+
+        <ImageView
+            android:id="@+id/imgCong"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/ic_tang"
+            app:tint="#121223"/>
+        <TextView
+            android:layout_width="50dp"
+            android:layout_height="30dp"
+            android:gravity="center"
+            android:layout_toStartOf="@id/imgCong"
+            android:layout_marginHorizontal="5dp"
+            android:textColor="#121223"
+            android:text="1"
+            android:background="@drawable/khung_qtt"
+            android:textSize="15sp"
+            android:id="@+id/tvQuantity"/>
+        <ImageView
+            android:id="@+id/imgTru"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_toStartOf="@id/tvQuantity"
+            android:src="@drawable/ic_giam"
+            app:tint="#121223"/>
+    </RelativeLayout>
+
+    <!-- Guideline để tạo không gian giữa ảnh và nội dung văn bản -->
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.28606966" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
