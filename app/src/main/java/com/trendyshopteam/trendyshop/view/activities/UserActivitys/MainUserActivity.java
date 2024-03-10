@@ -8,6 +8,7 @@ import android.view.MenuItem;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
@@ -24,6 +25,7 @@ import com.trendyshopteam.trendyshop.R;
 import com.trendyshopteam.trendyshop.adapter.ProductTypeAdapter_User;
 import com.trendyshopteam.trendyshop.databinding.ActivityMainManagerBinding;
 import com.trendyshopteam.trendyshop.databinding.ActivityMainUserBinding;
+import com.trendyshopteam.trendyshop.utilities.SharePreferencesManage;
 import com.trendyshopteam.trendyshop.view.activities.CartActivity;
 import com.trendyshopteam.trendyshop.view.activities.Favorite_Activity;
 import com.trendyshopteam.trendyshop.view.activities.LoginActivity;
@@ -44,6 +46,7 @@ public class MainUserActivity extends AppCompatActivity {
     private ActivityMainUserBinding binding;
     private DrawerLayout drawerLayout;
     private Context context = this;
+    private SharePreferencesManage preferencesManage;
 
     String productTypeId;
 
@@ -76,7 +79,10 @@ public class MainUserActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 int itemID = menuItem.getItemId();
 
-                if (itemID == R.id.itemOder) {
+                if(itemID == R.id.item_home){
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fl_mainFragment, fragment).commit();
+                    toolbar.setTitle(R.string.title_home);
+                } else if (itemID == R.id.itemOder) {
                     startActivity(new Intent(context, CartActivity.class));
 //                    getSupportFragmentManager().beginTransaction().replace(R.id.fl_mainFragment, new OrderFragment()).commit();
                     toolbar.setTitle(R.string.title_order);
@@ -102,9 +108,19 @@ public class MainUserActivity extends AppCompatActivity {
                     getSupportFragmentManager().beginTransaction().replace(R.id.fl_mainFragment, new AboutFragment()).commit();
                     toolbar.setTitle(R.string.title_about);
                 } else if (itemID == R.id.item_logOut) {
-                    FirebaseAuth.getInstance().signOut();
-                    startActivity(new Intent(context, LoginActivity.class));
-                    finishAffinity();
+                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                    builder.setTitle("Do you want to log out?");
+                    builder.setNegativeButton("No",null);
+                    builder.setPositiveButton("Yes",(dialog, which) -> {
+                        FirebaseAuth.getInstance().signOut();
+                        preferencesManage = new SharePreferencesManage(context);
+                        preferencesManage.clearUserData();
+                        startActivity(new Intent(context, LoginActivity.class));
+                        finishAffinity();
+                        dialog.dismiss();
+                    });
+                    builder.setCancelable(false);
+                    builder.create().show();
                 } else if (itemID == R.id.item_orderhistory) {
                     getSupportFragmentManager().beginTransaction().replace(R.id.fl_mainFragment, new OrderHistoryFragment()).commit();
                 }
@@ -141,12 +157,12 @@ public class MainUserActivity extends AppCompatActivity {
                 drawerLayout.closeDrawer(GravityCompat.END);
             }
             drawerLayout.openDrawer(GravityCompat.END);
-        } else if (id == R.id.icon_cart) {
-            startActivity(new Intent(context, CartActivity.class));
-        } else if (id == R.id.icon_favorite) {
-            startActivity(new Intent(context, Favorite_Activity.class));
         } else if (id == R.id.icon_notification) {
             startActivity(new Intent(context, Notification_Activity.class));
+        } else if (id == R.id.icon_favorite) {
+            startActivity(new Intent(context, Favorite_Activity.class));
+        } else if (id == R.id.icon_cart) {
+            startActivity(new Intent(context, CartActivity.class));
         }
 
         return super.onOptionsItemSelected(item);

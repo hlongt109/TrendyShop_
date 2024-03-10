@@ -33,15 +33,7 @@ public class LoginPresenter {
             handleLogin(email, password);
         }
     }
-    public void checkLogged(){
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        FirebaseUser user = auth.getCurrentUser();
-        if(user != null){
-            new Handler().postDelayed(() -> {
-                loginInterface.loginSuccess();
-            },2000);
-        }
-    }
+
     private void handleLogin(String email, String password) {
         loading(true);
         FirebaseAuth auth = FirebaseAuth.getInstance();

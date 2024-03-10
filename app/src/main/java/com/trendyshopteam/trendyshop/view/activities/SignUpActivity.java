@@ -38,6 +38,10 @@ public class SignUpActivity extends AppCompatActivity implements SignupInterface
         binding.btnGotoLogin.setOnClickListener(v -> {
             onBackPressed();
         });
+        binding.btnBack.setOnClickListener(v -> {
+            onBackPressed();
+        });
+
     }
     @Override
     public Context getContext() {

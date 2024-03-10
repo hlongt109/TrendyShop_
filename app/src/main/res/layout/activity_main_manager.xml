@@ -36,5 +36,5 @@
         app:headerLayout="@layout/header_draw"
         app:itemIconTint="@color/white"
         app:itemTextColor="@color/white"
-        app:menu="@menu/drawable" />
+        app:menu="@menu/drawable_admin" />
 </androidx.drawerlayout.widget.DrawerLayout>

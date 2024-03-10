@@ -22,7 +22,6 @@ import com.trendyshopteam.trendyshop.view.activities.UserActivitys.MainUserActiv
 public class LoginActivity extends AppCompatActivity implements LoginInterface {
     private ActivityLoginBinding binding;
     private LoginPresenter presenter;
-    private SharePreferencesManage sharePreferencesManage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,9 +102,5 @@ public class LoginActivity extends AppCompatActivity implements LoginInterface {
         startActivity(new Intent(this, MainUserActivity.class));
         finishAffinity();
     }
-    @Override
-    protected void onStart() {
-        super.onStart();
-        presenter.checkLogged();
-    }
+
 }

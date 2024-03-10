@@ -29,14 +29,14 @@ public class MainManageFragment extends Fragment {
        View view = inflater.inflate(R.layout.fragment_main_manage,container,false);
        binding = FragmentMainManageBinding.bind(view);
 
-       binding.billManage.setOnClickListener(new View.OnClickListener() {
+       binding.btnBillManage.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View view) {
                startActivity(new Intent(getContext(), BillManage_Activity.class));
            }
        });
 
-       binding.ProductManage.setOnClickListener(new View.OnClickListener() {
+       binding.btnProductManage.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View view) {
                //chuyển sang màn hình Product Manage
@@ -44,7 +44,7 @@ public class MainManageFragment extends Fragment {
            }
        });
 
-       binding.userManage.setOnClickListener(new View.OnClickListener() {
+       binding.btnUserManage.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View view) {
                //chuyển sang màn hình User manage
@@ -52,7 +52,7 @@ public class MainManageFragment extends Fragment {
            }
        });
 
-       binding.Statistical.setOnClickListener(new View.OnClickListener() {
+       binding.btnStatisticalManage.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View view) {
                //chuyển sang màn hình statistical

@@ -39,6 +39,7 @@ import com.trendyshopteam.trendyshop.model.User;
 import com.trendyshopteam.trendyshop.view.activities.CreateUserActivity;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -69,6 +70,15 @@ public class UserManagerPresenter {
                         list.add(user);
                     }
                 }
+                Collections.sort(list,(o1, o2) -> {
+                    if (o1.getRole().equals("Admin") && !o2.getRole().equals("Admin")) {
+                        return -1; 
+                    } else if (!o1.getRole().equals("Admin") && o2.getRole().equals("Admin")) {
+                        return 1;
+                    } else {
+                        return 0;
+                    }
+                });
                 userAdapter.notifyDataSetChanged();
                 userManageInterface.hideLoading();
             }

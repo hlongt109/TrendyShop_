@@ -28,5 +28,9 @@ public class SharePreferencesManage {
     public String getPosition() {
         return sharedPreferences.getString(KEY_POSITION,"");
     }
-
+    public void clearUserData(){
+        editor.remove(KEY_USERID);
+        editor.remove(KEY_POSITION);
+        editor.apply();
+    }
 }
