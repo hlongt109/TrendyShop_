@@ -45,7 +45,7 @@ public class UserDAO {
         uploadTask.addOnSuccessListener(taskSnapshot -> {
             storageReference.getDownloadUrl().addOnSuccessListener(uri -> {
                 String imageUrl = uri.toString();
-                User user = new User(id, email, password, fullname, "", role, imageUrl, "");
+                User user = new User(id, email,"", password, fullname, "", role, imageUrl, "");
                 databaseReference.child(id).setValue(user)
                         .addOnSuccessListener(unused -> {
                             createUserInterface.addSuccess();

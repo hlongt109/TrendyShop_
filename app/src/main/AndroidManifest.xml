@@ -15,6 +15,42 @@
         android:theme="@style/Theme.TrendyShop"
         tools:targetApi="31">
         <activity
+            android:name=".view.activities.PayOrderActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.activities.UserActivitys.DetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.activities.CartActivity"
+            android:exported="true">
+
+        </activity>
+        <activity android:name=".view.activities.ProductTypeManage_Activity"
+            android:exported="false">
+
+        </activity>
+
+        <activity
+            android:name=".view.activities.changeUserInformation_Activity"
+            android:exported="false" />
+        <activity
+            android:name=".view.activities.productDetail_Activity"
+            android:exported="false" />
+        <activity
+            android:name=".view.activities.Favorite_Activity"
+            android:exported="true">
+
+        </activity>
+        <activity
+            android:name=".view.activities.Notification_Activity"
+            android:exported="false" />
+        <activity
+            android:name=".view.activities.BillDetailsManage_Activity"
+            android:exported="false" />
+        <activity
+            android:name=".view.activities.BillManage_Activity"
+            android:exported="true" />
+        <activity
             android:name=".view.activities.SignUpActivity"
             android:exported="false" />
         <activity
@@ -28,18 +64,43 @@
         <activity
             android:name=".view.activities.UserManager"
             android:exported="true">
+
+        </activity>
+        <activity
+            android:name=".view.activities.ProductManage_Activity"
+            android:exported="true">
+
+        </activity>
+        <activity
+            android:name=".view.activities.MainActivity"
+            android:exported="true" />
+        <activity
+            android:name=".view.activities.SplashActivity"
+            android:exported="true" />
+        <activity android:name=".view.activities.UserActivitys.BillDetailsActivity"
+            android:exported="false">
+
+        </activity>
+        <activity android:name=".view.activities.UserActivitys.MainUserActivity"
+            android:exported="false">
+
+        </activity>
+        <activity android:name=".view.activities.MainManager" android:exported="false">
+
+        </activity>
+        <activity android:name=".view.activities.SplashActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".view.activities.SplashActivity"
-            android:exported="true" />
-        <activity
-            android:name=".view.activities.MainActivity"
-            android:exported="false" />
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
+
     </application>
 
 </manifest>

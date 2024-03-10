@@ -16,6 +16,8 @@ import com.trendyshopteam.trendyshop.R;
 import com.trendyshopteam.trendyshop.databinding.ActivityLoginBinding;
 import com.trendyshopteam.trendyshop.interfaces.LoginInterface;
 import com.trendyshopteam.trendyshop.presenter.LoginPresenter;
+import com.trendyshopteam.trendyshop.utilities.SharePreferencesManage;
+import com.trendyshopteam.trendyshop.view.activities.UserActivitys.MainUserActivity;
 
 public class LoginActivity extends AppCompatActivity implements LoginInterface {
     private ActivityLoginBinding binding;
@@ -52,8 +54,7 @@ public class LoginActivity extends AppCompatActivity implements LoginInterface {
     @Override
     public void loginSuccess() {
         Toast.makeText(this, "Login successfully", Toast.LENGTH_SHORT).show();
-        startActivity(new Intent(this, MainActivity.class));
-        finishAffinity();
+        presenter.switchScreen();
     }
 
     @Override
@@ -89,4 +90,17 @@ public class LoginActivity extends AppCompatActivity implements LoginInterface {
         binding.tilEmail.setError(null);
         binding.tilPass.setError(null);
     }
+
+    @Override
+    public void switchAdminScreen() {
+        startActivity(new Intent(this, MainManager.class));
+        finishAffinity();
+    }
+
+    @Override
+    public void switchUserScreen() {
+        startActivity(new Intent(this, MainUserActivity.class));
+        finishAffinity();
+    }
+
 }

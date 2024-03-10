@@ -22,7 +22,15 @@ public class SharePreferencesManage {
         editor.putString(KEY_POSITION,position);
         editor.apply();
     }
+    public String getUserId(){
+        return sharedPreferences.getString(KEY_USERID,"");
+    }
     public String getPosition() {
         return sharedPreferences.getString(KEY_POSITION,"");
+    }
+    public void clearUserData(){
+        editor.remove(KEY_USERID);
+        editor.remove(KEY_POSITION);
+        editor.apply();
     }
 }

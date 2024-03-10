@@ -1,12 +1,16 @@
 package com.trendyshopteam.trendyshop.presenter;
 
+import android.content.Intent;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Patterns;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -45,6 +49,7 @@ public class LoginPresenter {
                             sharePreferencesManage = new SharePreferencesManage(loginInterface.getContext());
                             sharePreferencesManage.setPosition(id,role);
                             loginInterface.loginSuccess();
+                            FirebaseUser user = auth.getCurrentUser();
                             loading(false);
                         }else {
                             loginInterface.loginFailure();
@@ -87,6 +92,15 @@ public class LoginPresenter {
             loginInterface.setLoading();
         } else {
             loginInterface.stopLoading();
+        }
+    }
+    public void switchScreen(){
+        sharePreferencesManage = new SharePreferencesManage(loginInterface.getContext());
+        if(sharePreferencesManage.getPosition().equals("Admin") || sharePreferencesManage.getPosition().equals("NhanVien")){
+            loginInterface.switchAdminScreen();
+        }
+        if(sharePreferencesManage.getPosition().equals("User")){
+            loginInterface.switchUserScreen();
         }
     }
 }
