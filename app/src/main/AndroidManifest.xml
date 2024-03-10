@@ -77,9 +77,10 @@
         </activity>
         <activity
             android:name=".view.activities.MainActivity"
-            android:exported="true" >
-
-        </activity>
+            android:exported="true" />
+        <activity
+            android:name=".view.activities.SplashActivity"
+            android:exported="true" />
         <activity android:name=".view.activities.UserActivitys.BillDetailsActivity"
             android:exported="false">
 
