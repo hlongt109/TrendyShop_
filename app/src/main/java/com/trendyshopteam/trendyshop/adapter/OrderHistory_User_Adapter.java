@@ -39,6 +39,7 @@ public class OrderHistory_User_Adapter extends RecyclerView.Adapter<OrderHistory
     private ArrayList<Bill> list;
     private Context context;
     private FirebaseDatabase database;
+    private String billId;
 
     public OrderHistory_User_Adapter(ArrayList<Bill> list, Context context, FirebaseDatabase database) {
         this.list = list;
@@ -56,13 +57,11 @@ public class OrderHistory_User_Adapter extends RecyclerView.Adapter<OrderHistory
 
     @Override
     public void onBindViewHolder(@NonNull viewHolep holder, int position) {
-        DecimalFormat format = new DecimalFormat("###,###");
-//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
         Bill bill = list.get(position);
-//        Date date = new Date(bill.getTimestamp());
-////        String date = simpleDateFormat.format(bill.getTimestamp());
-//        Log.d("DATE", "checkDate: " + date);
+        billId = bill.getBillId();
+        Log.d("billId", "onBindViewHolder: " + billId);
+
+        DecimalFormat format = new DecimalFormat("###,###");
         holder.tvBillId.setText(bill.getBillId());
         holder.tvTotal.setText(format.format(bill.getTotalAmount()));
         holder.tvDate.setText(bill.getTimestamp());
@@ -76,36 +75,16 @@ public class OrderHistory_User_Adapter extends RecyclerView.Adapter<OrderHistory
             holder.btnComfirm.setVisibility(View.VISIBLE);
         }
 
-        holder.btnComfirm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DatabaseReference reference = database.getReference("Bill").child(bill.getBillId()).child("status");
-                reference.setValue(2).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        Toast.makeText(context, "Xác nhận thành công", Toast.LENGTH_SHORT).show();
-                        // Cập nhật giao diện nếu cần
-                        holder.btnComfirm.setVisibility(View.GONE);
-                        holder.tvWaitComfirm.setText("Goods received");
-                        holder.tvWaitComfirm.setTextColor(Color.GREEN);
-
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
+        holder.btnComfirm.setOnClickListener(view -> {
+            Intent intent = new Intent(view.getContext(), BillDetailsActivity.class);
+            view.getContext().startActivity(intent);
         });
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String billId = bill.getBillId();
                 Intent intent = new Intent(context, BillDetailsActivity.class);
-                intent.putExtra("billId", billId);
-                Log.d("BILLID", "BillId" + billId);
+                intent.putExtra("billId", bill.getBillId());
                 context.startActivity(intent);
             }
         });

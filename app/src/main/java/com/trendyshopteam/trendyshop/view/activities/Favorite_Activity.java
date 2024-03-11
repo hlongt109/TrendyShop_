@@ -1,5 +1,6 @@
 package com.trendyshopteam.trendyshop.view.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.SearchView;
 
@@ -18,6 +19,7 @@ import com.trendyshopteam.trendyshop.adapter.Favorite_Adapter;
 import com.trendyshopteam.trendyshop.databinding.ActivityFavoriteBinding;
 import com.trendyshopteam.trendyshop.model.Favorite;
 import com.trendyshopteam.trendyshop.utilities.SharePreferencesManage;
+import com.trendyshopteam.trendyshop.view.activities.UserActivitys.MainUserActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +47,9 @@ public class Favorite_Activity extends AppCompatActivity {
                 .build();
         adapter = new Favorite_Adapter(options);
         binding.rcvFavorite.setAdapter(adapter);
-        binding.btnBackBill.setOnClickListener(v -> onBackPressed());
+        binding.btnBackBill.setOnClickListener(v -> {
+            startActivity(new Intent(Favorite_Activity.this, MainUserActivity.class));
+        });
         adapter.notifyDataSetChanged();
 
     }

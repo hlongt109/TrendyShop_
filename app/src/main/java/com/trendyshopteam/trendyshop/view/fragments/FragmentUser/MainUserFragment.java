@@ -3,6 +3,7 @@ package com.trendyshopteam.trendyshop.view.fragments.FragmentUser;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -12,6 +13,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.ViewFlipper;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -49,6 +52,12 @@ public class MainUserFragment extends Fragment implements ProductTypeAdapter_Use
 
         database = FirebaseDatabase.getInstance();
         databaseProduct = FirebaseDatabase.getInstance();
+
+        //slide show
+        ViewFlipper viewFlipper = view.findViewById(R.id.slider);
+        viewFlipper.setAutoStart(true);
+        viewFlipper.setFlipInterval(2000);
+        viewFlipper.startFlipping();
 
         getAllProduct();
         binding.tvAll.setOnClickListener(new View.OnClickListener() {
@@ -151,7 +160,7 @@ public class MainUserFragment extends Fragment implements ProductTypeAdapter_Use
 
     private void getAllProduct(){
         DatabaseReference allProduct = databaseProduct.getReference("Product");
-        allProduct.addValueEventListener(new ValueEventListener() {
+        allProduct.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 listProduct.clear();
@@ -171,4 +180,5 @@ public class MainUserFragment extends Fragment implements ProductTypeAdapter_Use
         });
 
     }
+
 }

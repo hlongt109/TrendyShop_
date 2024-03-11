@@ -70,17 +70,119 @@
             app:cardCornerRadius="15dp">
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="120dp"
                 android:hint="Description"
                 android:textColorHint="@color/black"
                 android:id="@+id/in_descriptionProduct">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/ed_descriptionProduct"
                     android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:background="@drawable/khung_input"/>
+            </com.google.android.material.textfield.TextInputLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="5dp"
+            app:cardCornerRadius="15dp">
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Quantity"
+                android:textColorHint="@color/black"
+                android:id="@+id/in_quantityProduct">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/ed_quantityProduct"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/khung_input"/>
             </com.google.android.material.textfield.TextInputLayout>
         </androidx.cardview.widget.CardView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginHorizontal="5dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/view6"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="5dp"
+                android:text="SELECT SIZE"
+                android:textColor="#000"
+                android:textSize="11dp"
+                android:textStyle="bold"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginHorizontal="5dp"
+                android:orientation="horizontal">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    app:cardBackgroundColor="#F1F4FB"
+                    android:onClick="onSizeClick">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="S"
+                        android:textColor="#000"
+                        android:textSize="16dp"
+                        android:id="@+id/size_S"
+                        android:textStyle="bold"
+                        android:tag="S"/>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    app:cardBackgroundColor="#F1F4FB"
+                    android:layout_marginLeft="10dp"
+                    android:onClick="onSizeClick">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="M"
+                        android:textColor="#000"
+                        android:textSize="16dp"
+                        android:id="@+id/size_M"
+                        android:textStyle="bold"
+                        android:tag="M"/>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    app:cardBackgroundColor="#F1F4FB"
+                    android:layout_marginLeft="10dp"
+                    android:onClick="onSizeClick">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="L"
+                        android:textColor="#000"
+                        android:textSize="16dp"
+                        android:id="@+id/size_L"
+                        android:textStyle="bold"
+                        android:tag="L"/>
+                </androidx.cardview.widget.CardView>
+
+            </LinearLayout>
+        </LinearLayout>
         
         <Button
             android:layout_width="180dp"

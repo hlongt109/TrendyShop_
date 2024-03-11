@@ -22,9 +22,6 @@ import java.text.NumberFormat;
 import java.util.Locale;
 
 public class BillDetail_Adapter extends FirebaseRecyclerAdapter<BillDetail, BillDetail_Adapter.MyViewHolder> {
-
-    private double priceProduct;
-    private double total;
     public BillDetail_Adapter(@NonNull FirebaseRecyclerOptions<BillDetail> options) {
         super(options);
     }
@@ -43,10 +40,10 @@ public class BillDetail_Adapter extends FirebaseRecyclerAdapter<BillDetail, Bill
                                 .error(com.firebase.ui.database.R.drawable.common_google_signin_btn_icon_dark_normal)
                                 .into(holder.image_BillDetail);
 
-                        Locale vietnamLocale = new Locale("vi", "VN");
-                        NumberFormat vietnamFormat = NumberFormat.getCurrencyInstance(vietnamLocale);
-                        String priceFormatted = vietnamFormat.format(product.getPrice());
-                        holder.Price_BillDetail.setText(priceFormatted);
+//                        Locale vietnamLocale = new Locale("vi", "VN");
+//                        NumberFormat vietnamFormat = NumberFormat.getCurrencyInstance(vietnamLocale);
+//                        String priceFormatted = vietnamFormat.format(product.getPrice());
+//                        holder.Price_BillDetail.setText(priceFormatted);
 
                         holder.Nameproduct_BillDetail.setText(product.getProductName());
                     }

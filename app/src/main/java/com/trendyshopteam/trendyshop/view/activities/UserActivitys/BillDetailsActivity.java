@@ -50,15 +50,13 @@ public class BillDetailsActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         String billId = intent.getStringExtra("billId");
-        Log.d("BillId", "Billid" + billId);
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("BillDetail");
+        databaseReference = FirebaseDatabase.getInstance().getReference("OrderDetails");
         databaseReference.child(billId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
                     productId = snapshot.child("productId").getValue(String.class);
-                    Log.d("ProductID", "ProductId" + productId);
 
                     DatabaseReference productRef = FirebaseDatabase.getInstance().getReference("Product");
                     productRef.child(productId).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -69,7 +67,7 @@ public class BillDetailsActivity extends AppCompatActivity {
                                 Product product = snapshot.getValue(Product.class);
                                 binding.nameProductUser.setText(product.getProductName());
                                 Glide.with(getApplicationContext()).load(product.getImgProduct()).into(binding.imgImageProduct);
-                                binding.priceProductUser.setText(format.format(product.getPrice()));
+//                                binding.priceProductUser.setText(format.format(product.getPrice()));
                             }else{
 
                             }

@@ -1,5 +1,6 @@
 package com.trendyshopteam.trendyshop.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -50,6 +51,7 @@ public class ProductTypeAdapter_User extends RecyclerView.Adapter<ProductTypeAda
         return new ViewHolder(view);
     }
 
+    @SuppressLint("RecyclerView")
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         ProductType productType = list.get(position);

@@ -36,7 +36,6 @@ public class OrderHistoryFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_order_history, container, false);
         binding = FragmentOrderHistoryBinding.bind(view);
 
@@ -44,7 +43,7 @@ public class OrderHistoryFragment extends Fragment {
         userId = sharePreferencesManage.getUserId();
         database = FirebaseDatabase.getInstance();
         DatabaseReference data = database.getReference("Bill");
-        data.orderByChild("userId").equalTo("u6FdmgC2KzOgD3FLoLRnyjyNent2").addValueEventListener(new ValueEventListener() {
+        data.orderByChild("userId").equalTo(userId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 list.clear();

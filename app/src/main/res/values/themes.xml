@@ -6,4 +6,5 @@
     </style>
 
     <style name="Theme.TrendyShop" parent="Base.Theme.TrendyShop" />
+    <integer name="dialogplus_animation_default_duration">300</integer>
 </resources>

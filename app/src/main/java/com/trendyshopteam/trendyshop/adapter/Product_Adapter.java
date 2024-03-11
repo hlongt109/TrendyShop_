@@ -1,6 +1,7 @@
 package com.trendyshopteam.trendyshop.adapter;
 
 import android.animation.ObjectAnimator;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -15,6 +16,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
@@ -44,11 +47,16 @@ public class Product_Adapter extends RecyclerView.Adapter<Product_Adapter.Produc
 
     private Context context;
     private ArrayList<Product> list;
-    private DatabaseReference database;
-    private Uri newImageUri;
+    private OnCardClickListener onCardClickListener;
+    private View selectedSizeView = null;
     private static final int IMAGE_PICK_REQUEST = 1;
-
-
+    public interface OnCardClickListener {
+        void onCardClick(int position);
+    }
+    public void setOnCardClickListener(OnCardClickListener listener) {
+        this.onCardClickListener = listener;
+    }
+    private DatabaseReference database;
     public Product_Adapter(Context context, ArrayList<Product> list, DatabaseReference database) {
         this.context = context;
         this.list = list;
@@ -68,10 +76,10 @@ public class Product_Adapter extends RecyclerView.Adapter<Product_Adapter.Produc
         Product pd = list.get(position);
         holder.tv_name_product.setText(list.get(position).getProductName());
 
-        Locale vietnamLocale = new Locale("vi", "VN");
-        NumberFormat vietnamFormat = NumberFormat.getCurrencyInstance(vietnamLocale);
-        String priceFormatted = vietnamFormat.format(list.get(position).getPrice());
-        holder.tv_price_product.setText(priceFormatted);
+//        Locale vietnamLocale = new Locale("vi", "VN");
+//        NumberFormat vietnamFormat = NumberFormat.getCurrencyInstance(vietnamLocale);
+//        String priceFormatted = vietnamFormat.format(list.get(position).getPrice());
+//        holder.tv_price_product.setText(priceFormatted);
 
         Glide.with(context)
                 .load(pd.getImgProduct())
@@ -149,6 +157,7 @@ public class Product_Adapter extends RecyclerView.Adapter<Product_Adapter.Produc
         }
     }
 
+    @SuppressLint("MissingInflatedId")
     private void updateProduct(Product product){
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         LayoutInflater inflater = LayoutInflater.from(context);
@@ -161,13 +170,14 @@ public class Product_Adapter extends RecyclerView.Adapter<Product_Adapter.Produc
         TextInputLayout in_nameProductUpdate = view.findViewById(R.id.in_nameProductUpdate);
         TextInputLayout in_priceProductUpdate = view.findViewById(R.id.in_priceProductUpdate);
         TextInputLayout in_descriptionProductUpdate = view.findViewById(R.id.in_descriptionProductUpdate);
+        TextInputLayout in_quantityProduct = view.findViewById(R.id.in_quantityProduct);
         TextInputEditText ed_nameProductUpdate = view.findViewById(R.id.ed_nameProductUpdate);
         TextInputEditText ed_priceProductUpdate = view.findViewById(R.id.ed_priceProductUpdate);
         TextInputEditText ed_descriptionProductUpdate = view.findViewById(R.id.ed_descriptionProductUpdate);
+        TextInputEditText ed_quantityProduct = view.findViewById(R.id.ed_quantityProduct);
         Button btn_UpdateProduct = view.findViewById(R.id.btn_UpdateProduct);
 
         ed_nameProductUpdate.setText(product.getProductName());
-        ed_priceProductUpdate.setText(String.valueOf(product.getPrice()));
         ed_descriptionProductUpdate.setText(product.getDescription());
         Glide.with(context).load(product.getImgProduct()).into(update_imgProduct);
 
@@ -176,8 +186,9 @@ public class Product_Adapter extends RecyclerView.Adapter<Product_Adapter.Produc
             String newName = ed_nameProductUpdate.getText().toString();
             String newPriceStr = ed_priceProductUpdate.getText().toString();
             String newDescription = ed_descriptionProductUpdate.getText().toString();
+            String quantity = ed_quantityProduct.getText().toString();
 
-            if (newName.isEmpty() || newPriceStr.isEmpty() || newDescription.isEmpty()) {
+            if (newName.isEmpty() || newPriceStr.isEmpty() || newDescription.isEmpty() || quantity.isEmpty()) {
                 if (newName.equals("")) {
                     in_nameProductUpdate.setError("Vui lòng không bỏ trống tên sản phẩm");
                 } else {
@@ -195,6 +206,12 @@ public class Product_Adapter extends RecyclerView.Adapter<Product_Adapter.Produc
                 } else {
                     in_descriptionProductUpdate.setError(null);
                 }
+
+                if (quantity.equals("")) {
+                    in_quantityProduct.setError("Vui lòng không để trống số lượng");
+                } else {
+                    in_quantityProduct.setError(null);
+                }
                 return;
             }
 
@@ -208,6 +225,24 @@ public class Product_Adapter extends RecyclerView.Adapter<Product_Adapter.Produc
                 in_priceProductUpdate.setError(null);
             } catch (NumberFormatException e) {
                 in_priceProductUpdate.setError("giá sản phẩm phải là số");
+                return;
+            }
+
+            int quanti;
+            try {
+                quanti = Integer.parseInt(quantity);
+                if(quanti <= 0){
+                    in_quantityProduct.setError("số lượng phải lớn hơn 0");
+                    return;
+                }
+                in_quantityProduct.setError(null);
+            }catch (NumberFormatException e){
+                in_quantityProduct.setError("số lượng nhập phải là số");
+                return;
+            }
+
+            if(selectedSizeView == null){
+                Toast.makeText(view.getContext(), "Vui lòng chọn size để có thể add sản phẩm", Toast.LENGTH_SHORT).show();
                 return;
             }
 

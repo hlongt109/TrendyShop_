@@ -1,21 +1,23 @@
 package com.trendyshopteam.trendyshop.model;
 
+import java.util.HashMap;
+
 public class Product {
     private String productId, productTypeId, productName, description;
-    private double price;
     private double rate;
     private String imgProduct;
+    private HashMap<String, SizeInfo> sizeInfoMap;
     public Product() {
     }
 
-    public Product(String productId, String productTypeId, String productName, String description, double price, double rate, String imgProduct) {
+    public Product(String productId, String productTypeId, String productName, String description, double rate, String imgProduct, HashMap<String, SizeInfo> sizeInfoMap) {
         this.productId = productId;
         this.productTypeId = productTypeId;
         this.productName = productName;
         this.description = description;
-        this.price = price;
         this.rate = rate;
         this.imgProduct = imgProduct;
+        this.sizeInfoMap = sizeInfoMap;
     }
 
     public String getProductId() {
@@ -50,14 +52,6 @@ public class Product {
         this.description = description;
     }
 
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
     public double getRate() {
         return rate;
     }
@@ -72,5 +66,13 @@ public class Product {
 
     public void setImgProduct(String imgProduct) {
         this.imgProduct = imgProduct;
+    }
+
+    public HashMap<String, SizeInfo> getSizeInfoMap() {
+        return sizeInfoMap;
+    }
+
+    public void setSizeInfoMap(HashMap<String, SizeInfo> sizeInfoMap) {
+        this.sizeInfoMap = sizeInfoMap;
     }
 }

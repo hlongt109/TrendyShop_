@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,6 +20,7 @@ import com.google.firebase.database.Query;
 import com.trendyshopteam.trendyshop.R;
 import com.trendyshopteam.trendyshop.model.Favorite;
 import com.trendyshopteam.trendyshop.model.Product;
+import com.trendyshopteam.trendyshop.view.activities.UserActivitys.productDetailFavorite_Activity;
 import com.trendyshopteam.trendyshop.view.activities.productDetail_Activity;
 
 import java.text.NumberFormat;
@@ -45,10 +47,10 @@ public class Favorite_Adapter extends FirebaseRecyclerAdapter<Favorite, Favorite
                     if(product != null){
                         holder.name_favorite.setText(product.getProductName());
 
-                        Locale vietnamLocale = new Locale("vi", "VN");
-                        NumberFormat vietnamFormat = NumberFormat.getCurrencyInstance(vietnamLocale);
-                        String priceFormatted = vietnamFormat.format(product.getPrice());
-                        holder.price_favorite.setText(priceFormatted);
+//                        Locale vietnamLocale = new Locale("vi", "VN");
+//                        NumberFormat vietnamFormat = NumberFormat.getCurrencyInstance(vietnamLocale);
+//                        String priceFormatted = vietnamFormat.format(product.getPrice());
+//                        holder.price_favorite.setText(priceFormatted);
 
                         Glide.with(holder.image_favorite.getContext())
                                 .load(product.getImgProduct())
@@ -60,9 +62,20 @@ public class Favorite_Adapter extends FirebaseRecyclerAdapter<Favorite, Favorite
                 });
 
         holder.itemView.setOnClickListener(view -> {
-            Intent intent = new Intent(view.getContext(), productDetail_Activity.class);
+            Intent intent = new Intent(view.getContext(), productDetailFavorite_Activity.class);
             intent.putExtra("productId", productId);
+            intent.putExtra("favoriteId", model.getFavoriteId());
             view.getContext().startActivity(intent);
+        });
+
+        holder.favorite.setOnClickListener(view -> {
+            DatabaseReference favoriteRef = FirebaseDatabase.getInstance().getReference().child("Favorite");
+            favoriteRef.child(model.getFavoriteId()).removeValue()
+                    .addOnSuccessListener(unused -> {
+                        Toast.makeText(view.getContext(), "Loại thành công sản phẩm ra khỏi mục yêu thích !", Toast.LENGTH_SHORT).show();
+                    }).addOnFailureListener(e -> {
+                        Toast.makeText(view.getContext(), "Loại không thành công sản phẩm ra khỏi mục yêu thích !", Toast.LENGTH_SHORT).show();
+                    });
         });
 
     }

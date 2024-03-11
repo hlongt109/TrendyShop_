@@ -21,8 +21,11 @@ import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -42,21 +45,24 @@ import com.trendyshopteam.trendyshop.adapter.ProductType_Adapter;
 import com.trendyshopteam.trendyshop.adapter.Product_Adapter;
 import com.trendyshopteam.trendyshop.databinding.ActivityProductManageBinding;
 import com.trendyshopteam.trendyshop.model.Product;
+import com.trendyshopteam.trendyshop.model.SizeInfo;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.UUID;
 
 public class ProductManage_Activity extends AppCompatActivity {
     private ActivityProductManageBinding binding;
-    private String imageProductUri;
+    private String imageProductUri, selectedSize;
     private ImageView add_imgProduct;
     private ArrayList<Product> list = new ArrayList<>();
     private Product_Adapter adapter;
-    FirebaseDatabase database;
-    String productTypeId;
+    private FirebaseDatabase database;
+    private String productTypeId;
+    private View selectedSizeView = null;
     private static final int IMAGE_PICK_REQUEST = 1;
     private final ActivityResultLauncher<Intent> pickImage = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(), result -> {
@@ -119,7 +125,7 @@ public class ProductManage_Activity extends AppCompatActivity {
         });
     }
 
-    private void addProductDiaLog(){
+    private void addProductDiaLog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
         View view = inflater.inflate(R.layout.add_product, null);
@@ -131,9 +137,11 @@ public class ProductManage_Activity extends AppCompatActivity {
         TextInputLayout in_nameProduct = view.findViewById(R.id.in_nameProduct);
         TextInputLayout in_priceProduct = view.findViewById(R.id.in_priceProduct);
         TextInputLayout in_descriptionProduct = view.findViewById(R.id.in_descriptionProduct);
+        TextInputLayout in_quantityProduct = view.findViewById(R.id.in_quantityProduct);
         TextInputEditText ed_nameProduct = view.findViewById(R.id.ed_nameProduct);
         TextInputEditText ed_priceProduct = view.findViewById(R.id.ed_priceProduct);
         TextInputEditText ed_descriptionProduct = view.findViewById(R.id.ed_descriptionProduct);
+        TextInputEditText ed_quantityProduct = view.findViewById(R.id.ed_quantityProduct);
         Button btn_addProduct = view.findViewById(R.id.btn_addProduct);
 
         add_imgProduct.setOnClickListener(view1 -> {
@@ -147,6 +155,7 @@ public class ProductManage_Activity extends AppCompatActivity {
             String nameProduct = ed_nameProduct.getText().toString();
             String priceProduct = ed_priceProduct.getText().toString();
             String descriptionProduct = ed_descriptionProduct.getText().toString();
+            String quantity = ed_quantityProduct.getText().toString();
             String productId = UUID.randomUUID().toString();
 
             if (imageProductUri == null || imageProductUri.isEmpty()) {
@@ -154,7 +163,7 @@ public class ProductManage_Activity extends AppCompatActivity {
                 return;
             }
 
-            if (nameProduct.isEmpty() || priceProduct.isEmpty() || descriptionProduct.isEmpty()) {
+            if (nameProduct.isEmpty() || priceProduct.isEmpty() || descriptionProduct.isEmpty() || quantity.isEmpty()) {
                 if (nameProduct.equals("")) {
                     in_nameProduct.setError("Vui lòng không bỏ trống tên sản phẩm");
                 } else {
@@ -172,6 +181,12 @@ public class ProductManage_Activity extends AppCompatActivity {
                 } else {
                     in_descriptionProduct.setError(null);
                 }
+
+                if (quantity.equals("")) {
+                    in_quantityProduct.setError("Vui lòng không để trống số lượng");
+                } else {
+                    in_quantityProduct.setError(null);
+                }
                 return;
             }
 
@@ -188,13 +203,43 @@ public class ProductManage_Activity extends AppCompatActivity {
                 return;
             }
 
+            int quanti;
+            try {
+                quanti = Integer.parseInt(quantity);
+                if(quanti <= 0){
+                    in_quantityProduct.setError("số lượng phải lớn hơn 0");
+                    return;
+                }
+                in_quantityProduct.setError(null);
+            }catch (NumberFormatException e){
+                in_quantityProduct.setError("số lượng nhập phải là số");
+                return;
+            }
+
+            if(selectedSizeView == null){
+                Toast.makeText(this, "Vui lòng chọn size để có thể add sản phẩm", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // Lấy kích thước được chọn
+            String selectedSize = (String) selectedSizeView.getTag();
+
+            // Tạo đối tượng SizeInfo từ dữ liệu nhập vào
+            SizeInfo sizeInfo = new SizeInfo(quanti, price);
+
+            // Tạo đối tượng HashMap để lưu thông tin kích thước
+            HashMap<String, SizeInfo> sizeInfoMap = new HashMap<>();
+            sizeInfoMap.put(selectedSize, sizeInfo);
+
             Uri imageUri = Uri.parse(imageProductUri);
             String imageName = nameProduct + ".jpg";
             StorageReference imageRef = FirebaseStorage.getInstance().getReference().child("ProductImages").child(imageName);
             imageRef.putFile(imageUri)
                     .addOnSuccessListener(taskSnapshot -> imageRef.getDownloadUrl().addOnSuccessListener(uri -> {
                         String imageUrl = uri.toString();
-                        Product newProduct = new Product(productId, productTypeId, nameProduct, descriptionProduct, price, 0.0, imageUrl);
+
+                        Product newProduct = new Product(productId, productTypeId, nameProduct, descriptionProduct, 0.0, imageUrl, sizeInfoMap);
+
                         productRef.child(productId).setValue(newProduct)
                                 .addOnSuccessListener(unused -> {
                                     Toast.makeText(ProductManage_Activity.this, "Thêm " + nameProduct + " thành công", Toast.LENGTH_SHORT).show();
@@ -213,8 +258,8 @@ public class ProductManage_Activity extends AppCompatActivity {
         animateDialog(view);
     }
 
+
     private void animateDialog(View view) {
-        // Thiết lập animation cho cửa sổ cập nhật
         ObjectAnimator scaleX = ObjectAnimator.ofFloat(view, "scaleX", 0f, 1f);
         scaleX.setDuration(500);
         scaleX.setInterpolator(new AccelerateDecelerateInterpolator());
@@ -223,9 +268,43 @@ public class ProductManage_Activity extends AppCompatActivity {
         scaleY.setDuration(500);
         scaleY.setInterpolator(new AccelerateDecelerateInterpolator());
 
-        // Bắt đầu animation
         scaleX.start();
         scaleY.start();
+    }
+
+    public void onSizeClick(View view) {
+        if (selectedSizeView != null) {
+            selectedSizeView.setBackgroundColor(getResources().getColor(R.color.defaultSizeColor));
+            selectedSizeView.clearAnimation();
+            selectedSizeView.setTag(null);
+        }
+
+        TextView sizeTextView = view.findViewById(R.id.size_S);
+        if (sizeTextView != null) {
+            view.setBackgroundColor(getResources().getColor(R.color.selectedSizeColor));
+            Animation scaleUp = AnimationUtils.loadAnimation(this, R.anim.scale_up);
+            view.startAnimation(scaleUp);
+            selectedSizeView = view;
+            selectedSizeView.setTag("S");
+        } else {
+            sizeTextView = view.findViewById(R.id.size_M);
+            if (sizeTextView != null) {
+                view.setBackgroundColor(getResources().getColor(R.color.selectedSizeColor));
+                Animation scaleUp = AnimationUtils.loadAnimation(this, R.anim.scale_up);
+                view.startAnimation(scaleUp);
+                selectedSizeView = view;
+                selectedSizeView.setTag("M");
+            } else {
+                sizeTextView = view.findViewById(R.id.size_L);
+                if (sizeTextView != null) {
+                    view.setBackgroundColor(getResources().getColor(R.color.selectedSizeColor));
+                    Animation scaleUp = AnimationUtils.loadAnimation(this, R.anim.scale_up);
+                    view.startAnimation(scaleUp);
+                    selectedSizeView = view;
+                    selectedSizeView.setTag("L");
+                }
+            }
+        }
     }
 
 }
